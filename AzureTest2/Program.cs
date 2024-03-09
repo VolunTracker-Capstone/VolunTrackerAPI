@@ -1,12 +1,16 @@
-using AzureTest2.Data;
+using AzureTest2.Data; // Adjust if your actual namespace is different
 using Microsoft.EntityFrameworkCore;
+using AzureTest2.Models; // If your models are in a separate namespace, make sure this is correct
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add DbContext configuration
+builder.Services.AddDbContext<MyAzureContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
 
 var app = builder.Build();
 
@@ -39,15 +43,14 @@ app.MapGet("/weatherforecast", () =>
     .WithName("GetWeatherForecast")
     .WithOpenApi();
 
-app.MapGet("/members", async (AzureTest2Context context) => 
-        await context.Members.ToListAsync())
+app.MapGet("/members", async (MyAzureContext context) => 
+        await context.Member.ToListAsync())
     .WithName("GetAllMembers")
     .WithOpenApi();
-
 
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+};

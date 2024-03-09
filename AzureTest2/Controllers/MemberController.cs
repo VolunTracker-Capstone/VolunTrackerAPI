@@ -1,25 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AzureTest2.Models;
-using AzureTest2.Data; // Add this to use your DbContext
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using AzureTest2.Models; 
+using AzureTest2.Data;   
 
-namespace AzureTest2.Controllers
+namespace AzureTest2.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class MembersController : ControllerBase
 {
-    public class MemberController : ControllerBase
+    private readonly MyAzureContext _context;
+
+    public MembersController(MyAzureContext context)
     {
-        private readonly AzureTest2Context _context;
+        _context = context;
+    }
 
-        public MemberController(AzureTest2Context context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllMembers()
-        {
-            var members = await _context.Members.ToListAsync();
-            return Ok(members);
-        }
+    // This is to GET: /Members
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
+    {
+        return await _context.Member.ToListAsync();
     }
 }

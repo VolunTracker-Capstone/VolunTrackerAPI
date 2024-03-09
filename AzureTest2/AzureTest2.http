@@ -3,4 +3,6 @@
 GET {{AzureTest2_HostAddress}}/weatherforecast/
 Accept: application/json
 
+GET {{AzureTest2_HostAddress}}/members
+Accept: application/json
 ###
