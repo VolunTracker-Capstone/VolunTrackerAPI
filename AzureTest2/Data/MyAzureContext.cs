@@ -11,5 +11,6 @@ namespace AzureTest2.Data // Remove the comment here if it's part of the problem
         }
 
         public DbSet<Member> Member { get; set; }
+        public DbSet<Event> Event { get; set; }
     }
 }
