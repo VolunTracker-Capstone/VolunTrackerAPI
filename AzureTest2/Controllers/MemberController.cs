@@ -57,6 +57,8 @@ namespace AzureTest2.Controllers
 
                 if (memberToUpdate == null)
                     return NotFound($"Member with Id = {id} not found");
+                //Look into mappers to be able to memberToUpdate = member
+                //dotnet map model to context model
                 memberToUpdate.ProfilePicture = member.ProfilePicture;
                 memberToUpdate.LastName = member.LastName;
                 memberToUpdate.FirstName = member.FirstName;
