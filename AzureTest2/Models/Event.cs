@@ -12,7 +12,7 @@ namespace AzureTest2.Models
     public DateTime Date { get; set; }
     public string Street { get; set; }
     public string City { get; set; } 
-    public string State { get; se t; }
+    public string State { get; set; }
     public string Zip { get; set; }
     public string EventImage { get; set; }
     public int VolunteersNeeded { get; set; }

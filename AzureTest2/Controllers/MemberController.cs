@@ -8,11 +8,11 @@ namespace AzureTest2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MembersController : ControllerBase
+    public class MemberController : ControllerBase
     {
         private readonly MyAzureContext _context;
 
-        public MembersController(MyAzureContext context)
+        public MemberController(MyAzureContext context)
         {
             _context = context;
         }

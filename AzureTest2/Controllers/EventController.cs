@@ -79,7 +79,7 @@ namespace AzureTest2.Controllers
             }
         }
 
-        [HttpDelete("/event/{id}")]
+        [HttpDelete("/events/{id}")]
         public async Task<ActionResult<Event>> DeleteEvent(int id)
         {
             var eventToDelete = await _context.Event.FindAsync(id);
