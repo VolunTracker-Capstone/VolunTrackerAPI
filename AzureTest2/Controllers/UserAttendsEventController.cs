@@ -8,20 +8,21 @@ namespace AzureTest2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserJoinsOrgController : ControllerBase
+    public class UserAttendsEventController : ControllerBase
     {
         private readonly MyAzureContext _context;
 
-        public UserJoinsOrgController(MyAzureContext context)
+        public UserAttendsEventController(MyAzureContext context)
         {
             _context = context;
         }
-        [HttpGet("/organizations/{id}/members")]
-        public async Task<ActionResult<IEnumerable<Member>>> GetOrganizationMembers(int id)
+        
+        [HttpGet("/events/{id}/members")]
+        public async Task<ActionResult<IEnumerable<Member>>> GetEventMembers(int id)
         {
-            var memberIDs = await _context.UserJoinsOrg
-                .Where(ujo => ujo.OrgID == id)
-                .Select(ujo => ujo.MemberID)
+            var memberIDs = await _context.UserAttendsEvent
+                .Where(uae => uae.EventID == id)
+                .Select(uae => uae.MemberID)
                 .Distinct()
                 .ToListAsync();
 
@@ -45,12 +46,13 @@ namespace AzureTest2.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserJoinsOrg>> UserJoinsOrganization(UserJoinsOrg userJoinsOrg)
+        public async Task<ActionResult<UserAttendsEvent>> MemberAttendsEvent(UserAttendsEvent userAttendsEvent)
         {
-            _context.UserJoinsOrg.Add(userJoinsOrg);
+            _context.UserAttendsEvent.Add(userAttendsEvent);
             await _context.SaveChangesAsync();
 
-            return Ok(userJoinsOrg);
+            return Ok(userAttendsEvent);
         }
+        
     }
 }

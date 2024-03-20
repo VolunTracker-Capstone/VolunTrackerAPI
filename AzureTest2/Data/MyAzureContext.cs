@@ -27,5 +27,6 @@ namespace AzureTest2.Data // Remove the comment here if it's part of the problem
             modelBuilder.Entity<TagsList>()
                 .HasKey(tl => new { tl.TagID, tl.OrgID });
         }
+        
     }
 }

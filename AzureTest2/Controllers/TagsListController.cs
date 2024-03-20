@@ -16,7 +16,28 @@ namespace AzureTest2.Controllers
         {
             _context = context;
         }
+        
+        [HttpGet("/organizations/{id}/tags")]
+        public async Task<ActionResult<IEnumerable<string>>> GetOrganizationTags(int id)
+        {
+            var tagIDs = await _context.TagsList
+                .Where(tl => tl.OrgID == id)
+                .Select(tl => tl.TagID)
+                .Distinct()
+                .ToListAsync();
 
+            if (tagIDs == null)
+            {
+                return NotFound();
+            }
+
+            var tags = await _context.TagsList
+                .Where(t => tagIDs.Contains(t.TagID))
+                .Select(t => t.TagTitle)
+                .ToListAsync();
+            return Ok(tags);
+        }
+        
         [HttpPost]
         public async Task<ActionResult<TagsList>> AddTag(TagsList tagsList)
         {
