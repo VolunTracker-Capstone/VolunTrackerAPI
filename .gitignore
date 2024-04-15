@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # appsettings.json
 appsettings.json
+
+#JWT secret key file
+JWT_SECRET_TOKEN.env

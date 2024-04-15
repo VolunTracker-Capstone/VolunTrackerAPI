@@ -143,3 +143,6 @@ C:/Users/cagne/RiderProjects/AzureTest2/AzureTest2/obj/Debug/net8.0/AzureTest2.c
 /Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/obj/Debug/net8.0/AzureTest2.pdb
 /Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/obj/Debug/net8.0/AzureTest2.genruntimeconfig.cache
 /Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/obj/Debug/net8.0/ref/AzureTest2.dll
+/Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/bin/Debug/net8.0/DotNetEnv.dll
+/Users/jorge/Documents/GitHub/VolunTrackerAPI/AzureTest2/bin/Debug/net8.0/Sprache.dll

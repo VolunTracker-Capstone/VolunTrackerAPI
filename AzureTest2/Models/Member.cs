@@ -16,5 +16,6 @@ namespace AzureTest2.Models
     public string Email { get; set; }
     public decimal TotalHours { get; set; }
     public string ProfilePicture { get; set; }
+    public string Role { get; set; }
     }
 }
