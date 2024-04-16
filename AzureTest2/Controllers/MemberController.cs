@@ -27,51 +27,105 @@ namespace AzureTest2.Controllers
                 return NotFound();
             }
 
-            return Ok(member);
+            var memberDTO = new MemberDTO
+            {
+                Email = member.Email,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                MemberID = member.MemberID,
+                Phone = member.Phone,
+                Role = member.Role,
+                TotalHours = member.TotalHours,
+                Username = member.Username
+            };
+            return Ok(memberDTO);
         }
 
         [HttpGet("/members")]
-        public async Task<ActionResult<IEnumerable<Member>>> GetAllMembers()
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetAllMembers()
         {
-            return await _context.Member.ToListAsync();
+            var members = await _context.Member.ToListAsync();
+            List<MemberDTO> membersDTO = new List<MemberDTO>();
+            foreach (var member in members)
+            {
+                var memberDTO = new MemberDTO
+                {
+                    Email = member.Email,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    MemberID = member.MemberID,
+                    Phone = member.Phone,
+                    Role = member.Role,
+                    TotalHours = member.TotalHours,
+                    Username = member.Username
+                };
+                membersDTO.Add(memberDTO);
+            }
+
+            return membersDTO;
         }
         
         [HttpPost("/members")]
-        public async Task<IActionResult> AddMember(Member member)
+        public async Task<IActionResult> AddMember(MemberCreate memberCreateDTO)
         {
+            var member = new Member
+            {
+                Email = memberCreateDTO.Email,
+                FirstName = memberCreateDTO.FirstName,
+                LastName = memberCreateDTO.LastName,
+                Phone = memberCreateDTO.Phone,
+                Username = memberCreateDTO.Username,
+                Password = memberCreateDTO.Password
+            };
             _context.Member.Add(member);
             await _context.SaveChangesAsync();
-
-            return Ok(member);
+            var memberDTO = new MemberDTO
+            {
+                Email = member.Email,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                MemberID = member.MemberID,
+                Phone = member.Phone,
+                Role = member.Role,
+                TotalHours = member.TotalHours,
+                Username = member.Username
+            };
+            return Ok(memberDTO);
         }
 
         [HttpPut("/members/{id}")]
-        public async Task<ActionResult<Member>> UpdateMember(int id, Member member)
+        public async Task<ActionResult<MemberDTO>> UpdateMember(int id, MemberUpdate memberUpdate)
         {
             try
             {
-                if (id != member.MemberID)
+                if (id != memberUpdate.MemberID)
                     return BadRequest("Member ID mismatch");
 
                 var memberToUpdate = await _context.Member.FindAsync(id);
 
                 if (memberToUpdate == null)
                     return NotFound($"Member with Id = {id} not found");
-                //Look into mappers to be able to memberToUpdate = member
-                //dotnet map model to context model
-                memberToUpdate.ProfilePicture = member.ProfilePicture;
-                memberToUpdate.LastName = member.LastName;
-                memberToUpdate.FirstName = member.FirstName;
-                memberToUpdate.Password = member.Password;
-                memberToUpdate.TotalHours = member.TotalHours;
-                memberToUpdate.Username = member.Username;
-                memberToUpdate.Phone = member.Phone;
-                memberToUpdate.Email = member.Email;
-                memberToUpdate.MemberID = member.MemberID;
+                memberToUpdate.LastName = memberUpdate.LastName;
+                memberToUpdate.FirstName = memberUpdate.FirstName;
+                memberToUpdate.Username = memberUpdate.Username;
+                memberToUpdate.Phone = memberUpdate.Phone;
+                memberToUpdate.Email = memberUpdate.Email;
+                memberToUpdate.MemberID = memberUpdate.MemberID;
                 _context.Member.Update(memberToUpdate);
                 await _context.SaveChangesAsync();
-
-                return Ok(memberToUpdate);
+                
+                var memberDTO = new MemberDTO
+                {
+                    Email = memberToUpdate.Email,
+                    FirstName = memberToUpdate.FirstName,
+                    LastName = memberToUpdate.LastName,
+                    MemberID = memberToUpdate.MemberID,
+                    Phone = memberToUpdate.Phone,
+                    Role = memberToUpdate.Role,
+                    TotalHours = memberToUpdate.TotalHours,
+                    Username = memberToUpdate.Username
+                };
+                return Ok(memberDTO);
             }
             catch (Exception)
             {
