@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
 <!--        Changed invariant globalization from true to false-->
         <InvariantGlobalization>false</InvariantGlobalization>
+        <RootNamespace>AzureTest2</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
