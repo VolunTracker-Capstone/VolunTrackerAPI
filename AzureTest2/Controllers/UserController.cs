@@ -26,7 +26,7 @@ namespace AzureTest2.Controllers
                 var userClaims = identity.Claims;
                 return new UserModel
                 {
-                    Username = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+                    Email = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
                     Role = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value
                 };
             }

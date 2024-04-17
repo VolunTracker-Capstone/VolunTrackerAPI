@@ -58,8 +58,8 @@ namespace AzureTest2.Controllers
         
         private Member Authenticate(UserLogin userLogin)
         {
-            var currentUser = _context.Member.FirstOrDefault(x => x.Username.ToLower() ==
-                userLogin.Username.ToLower() && x.Password == userLogin.Password);
+            var currentUser = _context.Member.FirstOrDefault(x => x.Email.ToLower() ==
+                userLogin.Email.ToLower() && x.Password == userLogin.Password);
             if (currentUser != null)
             {
                 return currentUser;
