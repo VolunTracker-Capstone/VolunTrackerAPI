@@ -43,6 +43,9 @@ namespace AzureTest2.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,user.Username),
+                new Claim(ClaimTypes.NameIdentifier, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.FirstName),
+                new Claim(ClaimTypes.NameIdentifier, user.LastName),
                 new Claim(ClaimTypes.Role,user.Role)
             };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
