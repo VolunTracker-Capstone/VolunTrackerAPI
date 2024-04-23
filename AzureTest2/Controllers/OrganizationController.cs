@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using AzureTest2.Data;
 using AzureTest2.Models;
-using System.Threading.Tasks;
 
 namespace AzureTest2.Controllers
 {
@@ -38,8 +37,18 @@ namespace AzureTest2.Controllers
         }
         
         [HttpPost("/organizations")]
-        public async Task<ActionResult> AddOrganization(Organization organization)
+        public async Task<ActionResult> AddOrganization(OrganizationCreate organizationCreateDTO)
         {
+            Organization organization = new Organization
+            {
+                OrganizationOwnerID = organizationCreateDTO.OrganizationOwnerID,
+                Name = organizationCreateDTO.Name,
+                Street = organizationCreateDTO.Street,
+                City = organizationCreateDTO.City,
+                State = organizationCreateDTO.State,
+                Zip = organizationCreateDTO.Zip,
+                Website = organizationCreateDTO.Website
+            };
             _context.Organization.Add(organization);
             await _context.SaveChangesAsync();
 
@@ -61,9 +70,13 @@ namespace AzureTest2.Controllers
                 //Look into mappers to be able to organizationToUpdate = organization
                 //dotnet map model to context model
                 organizationToUpdate.organizationID = organization.organizationID;
-                organizationToUpdate.orgName = organization.orgName;
-                organizationToUpdate.orgAddress = organization.orgAddress;
-                organizationToUpdate.orgWebsite = organization.orgWebsite;
+                organizationToUpdate.OrganizationOwnerID = organization.OrganizationOwnerID;
+                organizationToUpdate.Name = organization.Name;
+                organizationToUpdate.Street = organization.Street;
+                organizationToUpdate.City = organization.City;
+                organizationToUpdate.State = organization.State;
+                organizationToUpdate.Zip = organization.Zip;
+                organizationToUpdate.Website = organization.Website;
                 _context.Organization.Update(organizationToUpdate);
                 await _context.SaveChangesAsync();
 

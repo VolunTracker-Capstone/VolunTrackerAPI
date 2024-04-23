@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using AzureTest2.Data;
 using AzureTest2.Models;
-using System.Threading.Tasks;
 
 namespace AzureTest2.Controllers
 {
@@ -37,9 +36,20 @@ namespace AzureTest2.Controllers
         }
         
         [HttpPost("/events")]
-        public async Task<IActionResult> AddEvent(Event eventToAdd)
+        public async Task<IActionResult> AddEvent(EventCreate eventToAdd)
         {
-            _context.Event.Add(eventToAdd);
+            Event newEvent = new Event
+            {
+                EventOwnerID = eventToAdd.EventOwnerID,
+                Name = eventToAdd.Name,
+                Date = eventToAdd.Date,
+                Street = eventToAdd.Street,
+                City = eventToAdd.City,
+                State = eventToAdd.State,
+                Zip = eventToAdd.Zip,
+                VolunteersNeeded = eventToAdd.VolunteersNeeded
+            };
+            _context.Event.Add(newEvent);
             await _context.SaveChangesAsync();
 
             return Ok(eventToAdd);
