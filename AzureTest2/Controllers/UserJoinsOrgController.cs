@@ -30,9 +30,7 @@ namespace AzureTest2.Controllers
                 return NotFound();
             }
 
-            var ujos = await _context.UserJoinsOrg
-                .ToListAsync();
-            return Ok(ujos);
+            return Ok(members);
         }
 
         [HttpPost]
