@@ -17,31 +17,22 @@ namespace AzureTest2.Controllers
             _context = context;
         }
         [HttpGet("/organizations/{id}/members")]
-        public async Task<ActionResult<IEnumerable<Member>>> GetOrganizationMembers(int id)
+        public async Task<ActionResult<IEnumerable<UserJoinsOrg>>> GetOrganizationMembers(int id)
         {
-            var memberIDs = await _context.UserJoinsOrg
+            var members = await _context.UserJoinsOrg
                 .Where(ujo => ujo.OrgID == id)
-                .Select(ujo => ujo.MemberID)
+                .Select(ujo => ujo)
                 .Distinct()
                 .ToListAsync();
 
-            if (memberIDs == null)
+            if (members == null)
             {
                 return NotFound();
             }
 
-            var members = await _context.Member
-                .Where(m => memberIDs.Contains(m.MemberID))
-                .Select(m => new
-                {
-                    FirstName = m.FirstName,
-                    LastName = m.LastName,
-                    Email = m.Email,
-                    Phone = m.Phone,
-                    Username = m.Username
-                })
+            var ujos = await _context.UserJoinsOrg
                 .ToListAsync();
-            return Ok(members);
+            return Ok(ujos);
         }
 
         [HttpPost]
