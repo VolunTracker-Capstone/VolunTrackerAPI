@@ -16,5 +16,6 @@ namespace AzureTest2.Models
     public string Zip { get; set; }
     public string OrganizationImage { get; set; } = "string";
     public string Website { get; set; }
+    public string Description { get; set; }
     }
 }

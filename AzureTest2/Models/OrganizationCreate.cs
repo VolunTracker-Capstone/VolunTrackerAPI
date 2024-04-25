@@ -9,5 +9,6 @@ namespace AzureTest2.Models
         public string State { get; set; }
         public string Zip { get; set; }
         public string Website { get; set; }
+        public string Description { get; set; }
     }
 }

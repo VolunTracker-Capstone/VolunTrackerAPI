@@ -47,7 +47,8 @@ namespace AzureTest2.Controllers
                 City = organizationCreateDTO.City,
                 State = organizationCreateDTO.State,
                 Zip = organizationCreateDTO.Zip,
-                Website = organizationCreateDTO.Website
+                Website = organizationCreateDTO.Website,
+                Description = organizationCreateDTO.Description
             };
             _context.Organization.Add(organization);
             await _context.SaveChangesAsync();
@@ -77,6 +78,7 @@ namespace AzureTest2.Controllers
                 organizationToUpdate.State = organization.State;
                 organizationToUpdate.Zip = organization.Zip;
                 organizationToUpdate.Website = organization.Website;
+                organizationToUpdate.Description = organization.Description;
                 _context.Organization.Update(organizationToUpdate);
                 await _context.SaveChangesAsync();
 
