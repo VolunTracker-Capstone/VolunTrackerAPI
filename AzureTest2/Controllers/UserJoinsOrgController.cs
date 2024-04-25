@@ -32,6 +32,19 @@ namespace AzureTest2.Controllers
 
             return Ok(members);
         }
+        
+        [HttpDelete("/UserJoinsOrg/{orgID}/{memberID}")]
+        public async Task<ActionResult<UserJoinsOrg>> UserLeavesOrganization(int orgID, int memberID)
+        {
+            var ujo = await _context.UserJoinsOrg.FindAsync(memberID, orgID);
+
+            if (ujo == null)
+                return NotFound($"Ujo with organizationID = {orgID} and memberID = {memberID} not found"); 
+            _context.Remove(ujo);
+            await _context.SaveChangesAsync();
+
+            return Ok(ujo);
+        }
 
         [HttpPost]
         public async Task<ActionResult<UserJoinsOrg>> UserJoinsOrganization(UserJoinsOrg userJoinsOrg)
