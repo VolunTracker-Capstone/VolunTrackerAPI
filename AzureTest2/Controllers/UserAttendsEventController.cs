@@ -44,6 +44,19 @@ namespace AzureTest2.Controllers
                 .ToListAsync();
             return Ok(members);
         }
+        
+        [HttpDelete("/UserAttendsEvent/{eventID}/{memberID}")]
+        public async Task<ActionResult<UserAttendsEvent>> UserLeavesEvent(int eventID, int memberID)
+        {
+            var uae = await _context.UserAttendsEvent.FindAsync(memberID, eventID);
+         
+            if (uae == null)
+                return NotFound($"Uae with eventID = {eventID} and memberID = {memberID} not found"); 
+            _context.Remove(uae);
+            await _context.SaveChangesAsync();
+
+            return Ok(uae);
+        }
 
         [HttpPost]
         public async Task<ActionResult<UserAttendsEvent>> MemberAttendsEvent(UserAttendsEvent userAttendsEvent)

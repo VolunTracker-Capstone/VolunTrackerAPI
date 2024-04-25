@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AzureTest2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee2b23cd4805c506bcbf778e0619241ad485b619")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e9a3ce8b7cd2bfc11695630865dc895ad186b4c")]
 [assembly: System.Reflection.AssemblyProductAttribute("AzureTest2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AzureTest2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
