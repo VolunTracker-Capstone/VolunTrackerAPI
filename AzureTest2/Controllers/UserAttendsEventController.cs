@@ -57,6 +57,38 @@ namespace AzureTest2.Controllers
 
             return Ok(uae);
         }
+        
+        [HttpPut("/UserAttendsEvent/{eventID}/{memberID}/checkIn")]
+        public async Task<ActionResult<UserAttendsEvent>> CheckInUser(int eventID, int memberID, UserAttendsEventUpdate uae)
+        {
+            var uaeToUpdate = await _context.UserAttendsEvent.FindAsync(memberID, eventID);
+         
+            if (uaeToUpdate == null)
+                return NotFound($"Uae with eventID = {eventID} and memberID = {memberID} not found");
+            
+            uaeToUpdate.CheckIn = uae.datetime;
+            
+            _context.UserAttendsEvent.Update(uaeToUpdate);
+            await _context.SaveChangesAsync();
+
+            return Ok(uae);
+        }
+        
+        [HttpPut("/UserAttendsEvent/{eventID}/{memberID}/checkOut")]
+        public async Task<ActionResult<UserAttendsEvent>> CheckOutUser(int eventID, int memberID, UserAttendsEventUpdate uae)
+        {
+            var uaeToUpdate = await _context.UserAttendsEvent.FindAsync(memberID, eventID);
+         
+            if (uaeToUpdate == null)
+                return NotFound($"Uae with eventID = {eventID} and memberID = {memberID} not found");
+            
+            uaeToUpdate.CheckOut = uae.datetime;
+            
+            _context.UserAttendsEvent.Update(uaeToUpdate);
+            await _context.SaveChangesAsync();
+
+            return Ok(uae);
+        }
 
         [HttpPost]
         public async Task<ActionResult<UserAttendsEvent>> MemberAttendsEvent(UserAttendsEvent userAttendsEvent)
