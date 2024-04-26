@@ -16,9 +16,16 @@ namespace AzureTest2.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("/UserAttendsEvents")]
+        public async Task<ActionResult<IEnumerable<UserAttendsEvent>>> GetUserAttendsEvents()
+        {
+            var uaeList = await _context.UserAttendsEvent.ToListAsync();
+            return uaeList;
+        }
         
         [HttpGet("/events/{id}/members")]
-        public async Task<ActionResult<IEnumerable<Member>>> GetEventMembers(int id)
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetEventMembers(int id)
         {
             var memberIDs = await _context.UserAttendsEvent
                 .Where(uae => uae.EventID == id)
@@ -36,13 +43,32 @@ namespace AzureTest2.Controllers
                 .Select(m => new
                 {
                     FirstName = m.FirstName,
+                    MemberID = m.MemberID,
                     LastName = m.LastName,
                     Email = m.Email,
+                    Role = m.Role,
+                    TotalHours = m.TotalHours,
                     Phone = m.Phone,
                     Username = m.Username
                 })
                 .ToListAsync();
-            return Ok(members);
+            List<MemberDTO> membersDTO = new List<MemberDTO>();
+            foreach (var member in members)
+            {
+                var memberDTO = new MemberDTO
+                {
+                    Email = member.Email,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    MemberID = member.MemberID,
+                    Phone = member.Phone,
+                    Role = member.Role,
+                    TotalHours = member.TotalHours,
+                    Username = member.Username
+                };
+                membersDTO.Add(memberDTO);
+            }
+            return Ok(membersDTO);
         }
         
         [HttpDelete("/UserAttendsEvent/{eventID}/{memberID}")]
