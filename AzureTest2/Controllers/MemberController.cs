@@ -133,6 +133,32 @@ namespace AzureTest2.Controllers
             }
         }
 
+        [HttpPut("/members/{id}/updateHours")]
+        public async Task<ActionResult<MemberDTO>> UpdateMemberHours(int id, MemberHoursUpdate memberUpdate)
+        {
+            var memberToUpdate = await _context.Member.FindAsync(id);
+
+            if (memberToUpdate == null)
+                return NotFound($"Member with memberID = {id} not found");
+
+            memberToUpdate.TotalHours = Decimal.Add(memberToUpdate.TotalHours, memberUpdate.TotalHours);
+            _context.Member.Update(memberToUpdate);
+            await _context.SaveChangesAsync();
+            
+            var memberDTO = new MemberDTO
+            {
+                Email = memberToUpdate.Email,
+                FirstName = memberToUpdate.FirstName,
+                LastName = memberToUpdate.LastName,
+                MemberID = memberToUpdate.MemberID,
+                Phone = memberToUpdate.Phone,
+                Role = memberToUpdate.Role,
+                TotalHours = memberToUpdate.TotalHours,
+                Username = memberToUpdate.Username
+            };
+            return Ok(memberDTO);
+        }
+
         [HttpDelete("/members/{id}")]
         public async Task<ActionResult<Member>> DeleteMember(int id)
         {

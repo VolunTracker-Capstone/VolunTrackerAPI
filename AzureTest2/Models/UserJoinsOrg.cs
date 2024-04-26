@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AzureTest2.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace AzureTest2.Models
+﻿namespace AzureTest2.Models
 {
     public class UserJoinsOrg
     {

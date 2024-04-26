@@ -54,5 +54,21 @@ namespace AzureTest2.Controllers
 
             return Ok(userJoinsOrg);
         }
+        
+        [HttpPut("/UserJoinsOrg/{orgID}/{memberID}")]
+        public async Task<ActionResult<UserJoinsOrg>> UpdateUserHours(int orgID, int memberID, UserJoinsOrgHoursUpdate ujohu)
+        {
+            var ujo = await _context.UserJoinsOrg.FindAsync(memberID, orgID);
+
+            if (ujo == null)
+                return NotFound($"Ujo with organizationID = {orgID} and memberID = {memberID} not found");
+
+            ujo.HoursWorked = Decimal.Add(ujo.HoursWorked, ujohu.HoursWorked);
+            
+            _context.UserJoinsOrg.Update(ujo);
+            await _context.SaveChangesAsync();
+
+            return Ok(ujo);
+        }
     }
 }
