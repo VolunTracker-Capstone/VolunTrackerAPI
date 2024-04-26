@@ -488,3 +488,13 @@ appsettings.json
 
 #JWT secret key file
 JWT_SECRET_TOKEN.env
+
+# Ignore compiled files
+*.dll
+*.pdb
+
+# Ignore cache files
+*.cache
+
+# Ignore AssemblyInfo.cs
+**/Properties/AssemblyInfo.cs

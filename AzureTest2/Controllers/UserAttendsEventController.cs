@@ -24,6 +24,18 @@ namespace AzureTest2.Controllers
             return uaeList;
         }
         
+        [HttpGet("/UserAttendsEvent/{eventID}/{memberID}")]
+        public async Task<ActionResult<IEnumerable<UserAttendsEvent>>> GetSingleUser(int eventID, int memberID)
+        {
+            var uae = await _context.UserAttendsEvent.FindAsync(memberID, eventID);
+            if (uae == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(uae);
+        }
+        
         [HttpGet("/events/{id}/members")]
         public async Task<ActionResult<IEnumerable<MemberDTO>>> GetEventMembers(int id)
         {
